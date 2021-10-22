@@ -1,1 +1,2 @@
+- New entry added by the PR (#<PR_NUMBER>, @Leonidas-from-XIV)
 - Initial entry into the changelog
