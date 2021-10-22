@@ -1,3 +1,3 @@
-- This one should just be a suggestion (#<PR_NUMBER, @Leonidas-from-XIV)
+- This one should just be a suggestion (#<PR_NUMBER>, @Leonidas-from-XIV)
 - New entry added by the PR (#1, @Leonidas-from-XIV)
 - Initial entry into the changelog
