@@ -1,19 +1,24 @@
 name: Populate GitHub PR number in Changelog
 on: [pull_request]
 jobs:
-  Populate-Changelog-Actions:
+  Populate-Changelog-Action:
     runs-on: ubuntu-20.04
-    permissions:
-      - pull_requests: write
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Determine whether <PR_NUMBER> needs to be replaced
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          MATCHES=$(mktemp)
+          grep "#<PR_NUMBER>" CHANGES.md >> "${MATCHES}" || true
+          if [ -s "${MATCHES}" ] ; then echo "needs_replacement=1" >> $GITHUB_ENV; else echo "needs_replacement=0" >> $GITHUB_ENV; fi
+          rm "${MATCHES}"
+      - name: Replacing the <PR_NUMBER> variable
+        run: |
+          sed -i -e "s/#<PR_NUMBER>/#${{ github.event.pull_request.number }}/" CHANGES.md
+        if: ${{ env.needs_replacement == 1 }}
+      - uses: EndBug/add-and-commit@v7
+        if: ${{ env.needs_replacement == 1 }}
+        with:
+          author_name: PR Number Action
+          author_email: pr-number-action@users.noreply.github.com
+          message: "Substitution of PR#${{ github.event.pull_request.number }}"
