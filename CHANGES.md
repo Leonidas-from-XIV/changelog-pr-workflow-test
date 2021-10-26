@@ -1,3 +1,4 @@
+- This one from a different repo (#<PR_NUMBER>, @Testonidas-from-XIV)
 - New suggestion comes from the composite action (#3, @Leonidas-from-XIV)
 - This one should just be a suggestion (#2, @Leonidas-from-XIV)
 - New entry added by the PR (#1, @Leonidas-from-XIV)
