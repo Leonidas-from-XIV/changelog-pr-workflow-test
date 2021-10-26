@@ -1,5 +1,5 @@
 name: Populate GitHub PR number in Changelog
-on: [pull_request]
+on: [pull_request_target]
 jobs:
   Populate-Changelog-Action:
     runs-on: ubuntu-20.04
